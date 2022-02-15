@@ -1,5 +1,5 @@
-import './App.css';
 import Navbar from './Navbar';
+import Home from './Home';
 
 function App() {
 
@@ -8,10 +8,9 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
       <div className="content">
-        <h1>App Component</h1>
-        <h1>{ title }</h1>
-        <h1>Likes { likes }</h1>
+        <Home />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 const Navbar = () => {
     return ( 
-        <nav className="Navbar">
+        <nav className="navbar">
             <h1>The Green AEC Blog</h1>
             <div className="links">
                 <a href="/">Home</a>
