@@ -3,20 +3,23 @@ import { useState } from "react"
 
 const Home = () => {
     // using hooks to change state upon events
-    const [name, setName] = useState("Karim")
-    const [age, setAge] = useState(30)
-
-    // using setName to change to new name 
-    const handleClick = (name) => {
-        setName("Ibrahim")
-        setAge(26)
-    }
+    const [blogs, setBlogs] = useState([
+        // adding dummy blog entries
+        { title: "My new website", body: "This is my first blog post", author: "Karim", id: 1},
+        { title: "Food Preference", body: "I Like pizza!", author: "Cherine", id: 2},
+        { title: "Travel Plans", body: "I am goign to paris tomorrow", author: "Ibrahim", id: 3}
+    ])
 
     return ( 
         <div className="home">
-            <h2>Homepage</h2>
-            <p>My name is { name } and I am {age} years old</p>
-            <button onClick={handleClick}>Click me!</button>
+            {blogs.map((blog) => (
+                <div className="blog-preview" key={ blog.id }>
+                    <h2>{ blog.title }</h2>
+                    <p>Post by { blog.author }</p>
+                </div>
+
+
+            ))}
         </div>
      );
 }
