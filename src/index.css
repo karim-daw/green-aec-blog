@@ -53,3 +53,7 @@
   color: #333;
   margin-bottom: 8px;
 }
+
+.blog-preview h2:hover {
+  color: #0BD953;
+}
