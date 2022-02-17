@@ -15,6 +15,7 @@ const Home = () => {
         // blogs={blogs} is a a prop
         <div className="home">
             <BlogList blogs={blogs} title="All Blogs" />
+            <BlogList blogs={blogs.filter((blog) => blog.author === "Karim")} title="Karim's Blogs" />
         </div>
      );
 }
