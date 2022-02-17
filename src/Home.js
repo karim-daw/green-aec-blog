@@ -12,7 +12,8 @@ const Home = () => {
     
     const [name, setName] = useState("Karim")
 
-    // function that handles delete, is then used as a prop for BlogLists
+    // function that handles delete, 
+    // it is then used as a prop for BlogLists
     const handleDelete = (id) => {
         const newBlogs = blogs.filter((blog) => blog.id !== id)
         setBlogs(newBlogs)
@@ -24,12 +25,17 @@ const Home = () => {
     // if you put something in the array [ name ] it will fire if name changes state
     useEffect(() => {
         console.log("use effect ran")
+        console.log(name)
     }, [name])
 
     return ( 
-        // blogs={blogs} is a a prop
+        // blogs is being given 3 sets of props
+        // each prop is different, blogs is array of data
+        // title is just a string, and handleDelete is a function itself 
         <div className="home">
             <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
+            <button onClick={() => setName("Himo")}>change name</button>
+            <p>{ name }</p>
         </div>
      );
 }
