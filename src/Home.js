@@ -19,8 +19,17 @@ const Home = () => {
     // if array is empty [] it will only fire once in teh beggining
     // if you put something in the array [ name ] it will fire if name changes state
     useEffect(() => {
-        console.log("use effect ran")
-        console.log(name)
+
+        // fetch request from blog endpoint
+        // use then() method to fire a funciton once the promise from fetch is resolved
+        fetch("http://localhost:8000/blogs")
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                //console.log(data)
+                setBlogs(data)
+            })
     }, [])
 
     return ( 
@@ -28,9 +37,7 @@ const Home = () => {
         // each prop is different, blogs is array of data
         // title is just a string, and handleDelete is a function itself 
         <div className="home">
-            <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
-            <button onClick={() => setName("Himo")}>change name</button>
-            <p>{ name }</p>
+            {blogs &&<BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />}
         </div>
      );
 }
