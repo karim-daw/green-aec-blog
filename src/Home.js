@@ -3,12 +3,7 @@ import BlogList from "./BlogList";
 
 const Home = () => {
     // using hooks to change state upon events
-    const [blogs, setBlogs] = useState([
-        // adding dummy blog entries
-        { title: "My new website", body: "This is my first blog post", author: "Karim", id: 1},
-        { title: "Food Preference", body: "I Like pizza!", author: "Cherine", id: 2},
-        { title: "Travel Plans", body: "I am goign to paris tomorrow", author: "Ibrahim", id: 3}
-    ])
+    const [blogs, setBlogs] = useState(null)
     
     const [name, setName] = useState("Karim")
 
@@ -26,7 +21,7 @@ const Home = () => {
     useEffect(() => {
         console.log("use effect ran")
         console.log(name)
-    }, [name])
+    }, [])
 
     return ( 
         // blogs is being given 3 sets of props
