@@ -2,11 +2,13 @@ import { useState, useEffect } from "react"
 import BlogList from "./BlogList";
 
 // starting a jsonserver
-// npxjson-server --watch data/db.json --port 8000
+// npx json-server --watch data/db.json --port 8000
 
 const Home = () => {
     // using hooks to change state upon events
+    // isPending is a hook for handling time for GET request from servers
     const [blogs, setBlogs] = useState(null)
+    const [isPending, setIsPending] = useState(true)
     
     // this function will fire at EVERY render
     // you can add a dependancy array
@@ -23,6 +25,7 @@ const Home = () => {
             .then(data => {
                 //console.log(data)
                 setBlogs(data)
+                setIsPending(false)
             })
     }, [])
 
@@ -32,7 +35,9 @@ const Home = () => {
         // title is just a string, and handleDelete is a function itself 
         // && is conditional templateing in javascript
         // if left of && is false, doesnt output what is to the right of it
+        // isPending is useing to conditionally output template for Loading...
         <div className="home">
+            { isPending && <div>Loading...</div>}
             {blogs && <BlogList blogs={blogs} title="All Blogs" />}
         </div>
      );
