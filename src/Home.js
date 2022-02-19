@@ -9,6 +9,7 @@ const Home = () => {
     // isPending is a hook for handling time for GET request from servers
     const [blogs, setBlogs] = useState(null)
     const [isPending, setIsPending] = useState(true)
+    const [error, setError] = useState(null)
     
     // this function will fire at EVERY render
     // you can add a dependancy array
@@ -20,12 +21,24 @@ const Home = () => {
         // use then() method to fire a funciton once the promise from fetch is resolved
         fetch("http://localhost:8000/blogs")
             .then(res => {
+                // check if response is OK, if yes return res has json
+                if(!res.ok) {
+                    throw Error("could not fetch data for that resource")
+                }
                 return res.json()
             })
             .then(data => {
-                //console.log(data)
+                // useState setBlogs to set retrieved data and setIsPending to false
+                // for that it doesnt show Loading... div when data is received
                 setBlogs(data)
                 setIsPending(false)
+                setError(null)
+            })
+            // handle network error
+            .catch(err => {
+                setError(err.message)
+                setIsPending(false)
+
             })
     }, [])
 
@@ -37,6 +50,7 @@ const Home = () => {
         // if left of && is false, doesnt output what is to the right of it
         // isPending is useing to conditionally output template for Loading...
         <div className="home">
+            {error && <div> { error } </div> }
             { isPending && <div>Loading...</div>}
             {blogs && <BlogList blogs={blogs} title="All Blogs" />}
         </div>
