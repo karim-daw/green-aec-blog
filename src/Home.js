@@ -7,13 +7,6 @@ import useFetch from "./useFetch";
 const Home = () => {
     const { data: blogs, isPending, error } = useFetch("http://localhost:8000/blogs")
 
-    // this function will fire at EVERY render
-    // you can add a dependancy array
-    // if array is empty [] it will only fire once in teh beggining
-    // if you put something in the array [ name ] it will fire if name changes state
-    console.log(blogs)
-  
-
     return ( 
         // blogs is being given 3 sets of props
         // each prop is different, blogs is array of data
