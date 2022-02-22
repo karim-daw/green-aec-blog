@@ -19,27 +19,31 @@ const useFetch = (url) => {
 
         // fetch request from blog endpoint
         // use then() method to fire a funciton once the promise from fetch is resolved
-        fetch(url)
-            .then(res => {
-                // check if response is OK, if yes return res has json
-                if(!res.ok) {
-                    throw Error("could not fetch data for that resource")
-                }
-                return res.json()
-            })
-            .then(data => {
-                // useState setBlogs to set retrieved data and setIsPending to false
-                // for that it doesnt show Loading... div when data is received
-                setData(data)
-                setIsPending(false)
-                setError(null)
-            })
-            // handle network error
-            .catch(err => {
-                setError(err.message)
-                setIsPending(false)
-            })
+        setTimeout(() => {
+            fetch(url)
+                .then(res => {
+                    // check if response is OK, if yes return res has json
+                    if(!res.ok) {
+                        throw Error("could not fetch data for that resource")
+                    }
+                    return res.json()
+                })
+                .then(data => {
+                    // useState setBlogs to set retrieved data and setIsPending to false
+                    // for that it doesnt show Loading... div when data is received
+                    setData(data)
+                    setIsPending(false)
+                    setError(null)
+                })
+                // handle network error
+                .catch(err => {
+                    setError(err.message)
+                    setIsPending(false)
+                })
+        }, 1000)
+
     }, [url])
+        
 
     return {data, isPending, error}
 }
