@@ -16,11 +16,12 @@ const useFetch = (url) => {
     const [error, setError] = useState(null)
     
     useEffect(() => {
+        const abortCont = new AbortController()
 
         // fetch request from blog endpoint
         // use then() method to fire a funciton once the promise from fetch is resolved
         setTimeout(() => {
-            fetch(url)
+            fetch(url,{signal: abortCont.signal})
                 .then(res => {
                     // check if response is OK, if yes return res has json
                     if(!res.ok) {
@@ -37,10 +38,17 @@ const useFetch = (url) => {
                 })
                 // handle network error
                 .catch(err => {
+                    
+                    if (err.name === "AbortError"){
+                        console.log("fetch aborted")
+                    } else {
                     setError(err.message)
                     setIsPending(false)
+                    }
                 })
         }, 1000)
+
+        return () => abortCont.abort()
 
     }, [url])
         
