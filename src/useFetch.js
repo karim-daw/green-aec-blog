@@ -16,6 +16,7 @@ const useFetch = (url) => {
     const [error, setError] = useState(null)
     
     useEffect(() => {
+        // Abort controller used to abort DOM request
         const abortCont = new AbortController()
 
         // fetch request from blog endpoint
@@ -38,7 +39,8 @@ const useFetch = (url) => {
                 })
                 // handle network error
                 .catch(err => {
-                    
+                    // if user doesnt wait for fetch data and clicks on 
+                    // new link, then the fetch promise is aborted, returns AbortError
                     if (err.name === "AbortError"){
                         console.log("fetch aborted")
                     } else {
