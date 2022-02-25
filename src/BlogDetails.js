@@ -10,7 +10,15 @@ const BlogDetails = () => {
 
     return (
         <div className="blog-details">
-            <h2>Blog details - { id }</h2>
+            { isPending && <div>Loading...</div> }
+            { error && <div>{ error }</div> }
+            { blog && (
+                <article>
+                    <h2>{ blog.title } </h2>
+                    <p>Written by { blog.author }</p>
+                    <div>{ blog.body }</div>
+                </article>
+            ) }
         </div>
       );
 }
