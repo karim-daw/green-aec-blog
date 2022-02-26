@@ -1,21 +1,32 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
     const Create = () => {
         const [title, setTitle] = useState('')
         const [body, setBody] = useState('')
         const [author, setAuthor] = useState('mario')
+        const [isPending, setIsPending] = useState(false)
+
+        // import history to be able to redirect
+        const history = useHistory()
 
         const handleSubmit = (e) => {
             // prevent refresh and create blog object
             e.preventDefault()
             const blog = { title, body, author}
 
-            fetch("http://localhost:8000/blogs", {
+            setIsPending(true)
+
+            fetch("http://localhost:8000/blogs/", {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(blog)
             }).then(() => {
                 console.log('new blog added')
+                setIsPending(false)
+
+                // using redirect one the user adds blogs
+                history.push('/')
             })
         }
 
@@ -44,10 +55,8 @@ import { useState } from "react";
                         <option value="mario">mario</option>
                         <option value="yoshi">yoshi</option>
                     </select>
-                    <button>Add Blog</button>
-                    <p>{title}</p>
-                    <p>{body}</p>
-                    <p>{author}</p>
+                    {!isPending && <button>Add Blog</button>}
+                    {isPending && <button disabled>Adding Blog...</button>}
             </form>
             
         </div>

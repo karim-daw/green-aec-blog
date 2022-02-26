@@ -17,6 +17,30 @@
       "body": "this is a test blog",
       "author": "mario",
       "id": 3
+    },
+    {
+      "title": "try adding blog",
+      "body": "asdasd",
+      "author": "mario",
+      "id": 4
+    },
+    {
+      "title": "try adding blog",
+      "body": "asdasdasdasd",
+      "author": "mario",
+      "id": 5
+    },
+    {
+      "title": "Karim is cool",
+      "body": "this is how cool karim is",
+      "author": "mario",
+      "id": 6
+    },
+    {
+      "title": "crap",
+      "body": "crap is crap",
+      "author": "mario",
+      "id": 7
     }
   ]
 }
