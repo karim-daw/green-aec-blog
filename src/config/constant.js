@@ -1,0 +1,1 @@
+export const API_SERVER = "https://fastapi-karim.herokuapp.com/"
