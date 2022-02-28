@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router"
-export default function Profile(){
+
+
+const Profile = () => {
 
   const navigate = useNavigate()
 
@@ -21,3 +23,5 @@ export default function Profile(){
         </>
     )
 }
+
+export default Profile

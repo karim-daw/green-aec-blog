@@ -6,6 +6,8 @@ import BlogDetails from './BlogDetails';
 import NotFound from './NotFound';
 import Login from "./Login";
 import Profile from "./Profile";
+import { RequireToken } from "./Auth";
+
 
 function App() {
 
@@ -18,7 +20,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" 
+          element={
+            <RequireToken>
+              <Profile />
+            </RequireToken>
+            } />
           <Route path="/create" element={<Create />} />
           <Route path="/blogs/:id" element={<BlogDetails />} />
           <Route path="*" element={<NotFound />} />
