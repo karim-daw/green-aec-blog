@@ -3,42 +3,67 @@ import { fetchToken, setToken } from "./Auth";
 import { useState } from "react";
 import axios from "axios";
 
+export default function Login() {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
+  //check to see if the fields are not empty
+  const login =  () => {
+    if ((username === "") & (password === "")) {
+      return;
+    } else {
+      axios
+        .post("https://fastapi-karim.herokuapp.com/login", {
+          username: username,
+          password: password,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          }
 
-  const fetchRandomData = () => {
-    return axios.post(
-      'https://fastapi-karim.herokuapp.com/login', {
-        username: "karim@example.com",
-        password: "password123",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" }
-
-      })
-      .then((res) => {
-        // handle success
-        console.log(res);
-        return res
-      })
-      .catch(err =>  {
-        // handle error
-        console.log(err);
-      })   
+        })
+        .then(res =>  {
+          console.log(res.data.token, "response.data.token");
+          if (res.data.token) {
+            setToken(res.data.token);
+            navigate("/profile");
+          }
+        })
+        .catch(err => {
+          console.log(err, "error");
+          console.log("hello");
+        });
     }
+  };
 
-  const Login = () => {
-      return (
-          <div className="Login">
-              <h1>Hello fastapi</h1>
-            <button onClick = { () => { fetchRandomData() } }>Fetch data</button>
+  return (
+    <div style={{ minHeight: 800, marginTop: 30 }}>
+      <h1>login page</h1>
+      <div style={{ marginTop: 30 }}>
+        {fetchToken() ? (
+          <p>you are logged in</p>
+        ) : (
+          <div>
+            <form>
+              <label style={{ marginRight: 10 }}>Input Username</label>
+              <input
+                type="email"
+                onChange={(e) => setUsername(e.target.value)}
+              />
+
+              <label style={{ marginRight: 10 }}>Input Password</label>
+              <input
+                type="text"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+
+              <button type="button" onClick={login}>
+                Login
+              </button>
+            </form>
           </div>
-       )
-  }
-
-  export default Login
-   
-
-
-
- 
-
-
-
+        )}
+      </div>
+    </div>
+  );
+}
