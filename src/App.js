@@ -7,11 +7,40 @@ import NotFound from './NotFound';
 import Login from "./Login";
 import Profile from "./Profile";
 import { RequireToken } from "./Auth";
+import Register from './components/Register';
+import { useEffect, useState } from 'react';
 
 
-function App() {
+const App = () => {
+  const [message, setMessage] = useState("")
+  const getWelcomeMessage = async () => {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+    const res = await fetch("https://fastapi-karim.herokuapp.com/", requestOptions)
+    const data = await res.json()
 
-  return (
+    if (!res.ok) {
+      console.log("something did not work")
+    } else {
+      setMessage(data.message)
+    }
+  }
+
+  useEffect(() => {
+    getWelcomeMessage()
+  }, [])
+  return(
+    <div>
+      <h1>{message}</h1>
+      <Register />
+    </div>
+  )
+
+/*   return (
     <div className="App">
 
       <Navbar />
@@ -34,7 +63,7 @@ function App() {
       </div>
 
     </div>
-  );
+  ); */
 
 }
 

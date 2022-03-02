@@ -2,7 +2,7 @@ import {createContext, useEffect, useState } from "react";
 
 export const UserContext = createContext();
 export const UserProvider = (props) => {
-    const [token, setToken] = useState(localStorage.getItem("aweseomLeadsToken"))
+    const [userId, setUserId] = useState(localStorage.getItem(1))
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -10,22 +10,21 @@ export const UserProvider = (props) => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + token,
                 },
             }
 
-            const response = await fetch("https://fastapi-karim.herokuapp.com/users", requestOptions)
+            const response = await fetch(`https://fastapi-karim.herokuapp.com/users/${userId}`, requestOptions)
 
             if (!response.ok) {
-                setToken(null)
+                setUserId(null)
             }
-            localStorage.setItem("awesomeLeadsToken", token)
+            localStorage.setItem(1, userId)
         }
         fetchUser()
-    }, [token])
+    }, [userId])
 
     return (
-        <UserContext.Provider value={[token, setToken]}>
+        <UserContext.Provider value={[userId, setUserId]}>
           {props.children}
         </UserContext.Provider>
       );
