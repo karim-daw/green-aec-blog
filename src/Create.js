@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
     const Create = () => {
         const [title, setTitle] = useState('')
@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
         const [isPending, setIsPending] = useState(false)
 
         // import history to be able to redirect
-        const history = useHistory()
+        const navigate = useNavigate()
 
         const handleSubmit = (e) => {
             // prevent refresh and create blog object
@@ -26,7 +26,7 @@ import { useHistory } from "react-router-dom";
                 setIsPending(false)
 
                 // using redirect one the user adds blogs
-                history.push('/')
+                navigate('/')
             })
         }
 
