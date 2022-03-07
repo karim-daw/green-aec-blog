@@ -6,7 +6,7 @@ class UserService {
   getPublicContent() {
     return axios.get(API_URL + 'posts');
   }
-/*   getUserBoard() {
+   getUserBoard() {
     return axios.get(API_URL + 'user', { headers: authHeader() });
   }
   getModeratorBoard() {
@@ -14,6 +14,6 @@ class UserService {
   }
   getAdminBoard() {
     return axios.get(API_URL + 'admin', { headers: authHeader() });
-  } */
+  } 
 }
 export default new UserService();
