@@ -88,7 +88,8 @@ const Register = () => {
         </button>
       </form>
     </div>
-  );
-};
+  )
 
-export default Register;
+}
+
+export default Register
