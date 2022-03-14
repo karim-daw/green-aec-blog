@@ -1,31 +1,34 @@
-import {createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const UserContext = createContext();
+
 export const UserProvider = (props) => {
-    const [userId, setUserId] = useState(localStorage.getItem(1))
+  const [token, setToken] = useState(localStorage.getItem("awesomeLeadsToken"));
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const requestOptions = {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
+  useEffect(() => {
+    const fetchUser = async () => {
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      };
 
-            const response = await fetch(`https://fastapi-karim.herokuapp.com/users/${userId}`, requestOptions)
+      const response = await fetch("/api/uasasers/me", requestOptions);
+      console.log("test")
 
-            if (!response.ok) {
-                setUserId(null)
-            }
-            localStorage.setItem(1, userId)
-        }
-        fetchUser()
-    }, [userId])
+      if (!response.ok) {
+        setToken(null);
+      }
+      localStorage.setItem("awesomeLeadsToken", token);
+    };
+    fetchUser();
+  }, [token]);
 
-    return (
-        <UserContext.Provider value={[userId, setUserId]}>
-          {props.children}
-        </UserContext.Provider>
-      );
-}
+  return (
+    <UserContext.Provider value={[token, setToken]}>
+      {props.children}
+    </UserContext.Provider>
+  );
+};

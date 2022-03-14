@@ -1,70 +1,53 @@
-import Navbar from './Navbar';
-import Home from './Home';
-import Create from './Create';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import BlogDetails from './BlogDetails';
-import NotFound from './NotFound';
-import Login from "./Login";
-import Profile from "./Profile";
-import { RequireToken } from "./Auth";
-import Register from './components/Register';
-import { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Header from "./components/Header";
+import { UserContext } from "./context/UserContext";
 
 const App = () => {
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
+  const [token] = useContext(UserContext);
+
   const getWelcomeMessage = async () => {
     const requestOptions = {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
-      }
-    }
-    const res = await fetch("https://fastapi-karim.herokuapp.com/", requestOptions)
-    const data = await res.json()
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch("https://fastapi-karim.herokuapp.com/", requestOptions);
+    const data = await response.json();
 
-    if (!res.ok) {
-      console.log("something did not work")
+    if (!response.ok) {
+      console.log("something messed up");
     } else {
-      setMessage(data.message)
+      setMessage(data.message);
     }
-  }
+  };
 
   useEffect(() => {
-    getWelcomeMessage()
-  }, [])
-  return(
-    <div>
-      <h1>{message}</h1>
-      <Register />
-    </div>
-  )
+    getWelcomeMessage();
+  }, []);
 
-/*   return (
-    <div className="App">
-
-      <Navbar />
-      <div className="content">
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" 
-          element={
-            <RequireToken>
-              <Profile />
-            </RequireToken>
-            } />
-          <Route path="/create" element={<Create />} />
-          <Route path="/blogs/:id" element={<BlogDetails />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-
+  return (
+    <>
+      <Header title={message} />
+      <div className="columns">
+        <div className="column"></div>
+        <div className="column m-5 is-two-thirds">
+          {!token ? (
+            <div className="columns">
+              <Register /> <Login />
+            </div>
+          ) : (
+            <h3>Hello</h3>
+          )}
+        </div>
+        <div className="column"></div>
       </div>
-
-    </div>
-  ); */
-
-}
+    </>
+  );
+};
 
 export default App;
