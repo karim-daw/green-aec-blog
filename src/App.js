@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import { UserContext } from "./context/UserContext";
+import { DataProvider } from "./context/DataContext";
 
 const App = () => {
   const [message, setMessage] = useState("");
